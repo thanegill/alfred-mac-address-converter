@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>category</key>
+	<string>Templates</string>
+	<key>connections</key>
+	<dict>
+		<key>B3B1A9D5-94C3-472E-A1CD-39721C205D44</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D3A57A38-B5D9-456B-B096-8AC2D8254C3C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>D3A57A38-B5D9-456B-B096-8AC2D8254C3C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>98B790E7-A446-4F0B-BE77-BB4A3CD48A64</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string></string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Mac Address Converter</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>D3A57A38-B5D9-456B-B096-8AC2D8254C3C</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>macaddr</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>source bash-workflow-handler/workflowHandler.sh
+
+function addMAC() {
+	addResult $1 $1 $1
+}
+
+MAC=$1
+
+if [[ $MAC == *":"* ]]; then
+    addMAC ${MAC//:}
+    addMAC ${MAC//:/-}
+fi
+
+if [[ $MAC == *"-"* ]]; then
+   addMAC ${MAC//-}
+   addMAC ${MAC//-/:}
+fi
+
+if [[ ${#MAC} == 12 ]]; then
+    addMAC ${MAC:0:2}:${MAC:2:2}:${MAC:4:2}:${MAC:6:2}:${MAC:8:2}:${MAC:10:2}
+fi
+
+
+if [[ ${#MAC} == 12 ]]; then
+    addMAC ${MAC:0:2}-${MAC:2:2}-${MAC:4:2}-${MAC:6:2}-${MAC:8:2}-${MAC:10:2}
+fi
+
+
+
+getXMLResults</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Convert Mac Address</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>B3B1A9D5-94C3-472E-A1CD-39721C205D44</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>Copied to clipboard</string>
+				<key>title</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>98B790E7-A446-4F0B-BE77-BB4A3CD48A64</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>98B790E7-A446-4F0B-BE77-BB4A3CD48A64</key>
+		<dict>
+			<key>xpos</key>
+			<integer>520</integer>
+			<key>ypos</key>
+			<integer>100</integer>
+		</dict>
+		<key>B3B1A9D5-94C3-472E-A1CD-39721C205D44</key>
+		<dict>
+			<key>xpos</key>
+			<integer>120</integer>
+			<key>ypos</key>
+			<integer>100</integer>
+		</dict>
+		<key>D3A57A38-B5D9-456B-B096-8AC2D8254C3C</key>
+		<dict>
+			<key>xpos</key>
+			<integer>340</integer>
+			<key>ypos</key>
+			<integer>100</integer>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
