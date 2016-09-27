@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string></string>
+	<string>com.thanegill.mac-address-converter</string>
 	<key>category</key>
-	<string>Templates</string>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>B3B1A9D5-94C3-472E-A1CD-39721C205D44</key>
@@ -36,7 +36,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string></string>
+	<string>Thane Gill</string>
 	<key>description</key>
 	<string></string>
 	<key>disabled</key>
@@ -112,7 +112,6 @@ if [[ ${#MAC} == 12 ]]; then
 fi
 
 
-
 getXMLResults</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
@@ -177,12 +176,12 @@ getXMLResults</string>
 		<key>D3A57A38-B5D9-456B-B096-8AC2D8254C3C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>340</integer>
+			<integer>330</integer>
 			<key>ypos</key>
 			<integer>100</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/thanegill/alfred-mac-address-converter</string>
 </dict>
 </plist>
