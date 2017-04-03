@@ -3,30 +3,27 @@ set -e
 
 source bash-workflow-handler/workflowHandler.sh
 
-function addMAC() {
-    addResult $1 $1 $1
-}
-
 MAC=$1
 
-if [[ $MAC == *":"* ]]; then
-    addMAC ${MAC//:}
-    addMAC ${MAC//:/-}
-fi
+function addMAC() {
+    lower=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+    upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
-if [[ $MAC == *"-"* ]]; then
-   addMAC ${MAC//-}
-   addMAC ${MAC//-/:}
-fi
+    if [[ $MAC != $lower ]]; then
+        addResult $lower $lower $lower
+    fi
 
-if [[ ${#MAC} == 12 ]]; then
-    addMAC ${MAC:0:2}:${MAC:2:2}:${MAC:4:2}:${MAC:6:2}:${MAC:8:2}:${MAC:10:2}
-fi
+    if [[ $MAC != $upper ]]; then
+        addResult $upper $upper $upper
+    fi
+}
 
+MAC=${MAC//:}
+MAC=${MAC//-}
 
-if [[ ${#MAC} == 12 ]]; then
-    addMAC ${MAC:0:2}-${MAC:2:2}-${MAC:4:2}-${MAC:6:2}-${MAC:8:2}-${MAC:10:2}
-fi
+addMAC $MAC
 
+addMAC ${MAC:0:2}:${MAC:2:2}:${MAC:4:2}:${MAC:6:2}:${MAC:8:2}:${MAC:10:2}
+addMAC ${MAC:0:2}-${MAC:2:2}-${MAC:4:2}-${MAC:6:2}-${MAC:8:2}-${MAC:10:2}
 
 getXMLResults
