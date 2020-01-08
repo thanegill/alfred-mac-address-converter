@@ -24,7 +24,7 @@ function addMAC() {
 CLEAN_MAC=$(echo $ORIGINAL_MAC | tr -cd '[:xdigit:]')
 
 if [ ${#CLEAN_MAC} != 12 ]; then
-    addResult "Not a vaild MAC address" "Not a vaild MAC address" "Not a vaild MAC address"
+    addResult "Not a vaild MAC address" "" "Not a vaild MAC address" "" "" "no"
     getXMLResults
 fi
 
