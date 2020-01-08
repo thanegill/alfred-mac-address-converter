@@ -3,27 +3,40 @@ set -e
 
 source bash-workflow-handler/workflowHandler.sh
 
-MAC=$1
+ORIGINAL_MAC=$1
 
 function addMAC() {
-    lower=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-    upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+    lower=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+    upper=$(echo "$2" | tr '[:lower:]' '[:upper:]')
 
-    if [[ $MAC != $lower ]]; then
-        addResult $lower $lower $lower
+    # Add lower case if diffrent that original
+    if [[ $ORIGINAL_MAC != $lower ]]; then
+        addResult $lower $lower $lower "Lowercase $1"
     fi
 
-    if [[ $MAC != $upper ]]; then
-        addResult $upper $upper $upper
+    # Add upper case if diffrent that original
+    if [[ $ORIGINAL_MAC != $upper ]]; then
+        addResult $upper $upper $upper "Uppercase $1"
     fi
 }
 
-MAC=${MAC//:}
-MAC=${MAC//-}
+# Remove : and - demilinators
+CLEAN_MAC=$(echo $ORIGINAL_MAC | tr -cd '[:xdigit:]')
 
-addMAC $MAC
+if [ ${#CLEAN_MAC} != 12 ]; then
+    addResult "Not a vaild MAC address" "Not a vaild MAC address" "Not a vaild MAC address"
+    getXMLResults
+fi
 
-addMAC ${MAC:0:2}:${MAC:2:2}:${MAC:4:2}:${MAC:6:2}:${MAC:8:2}:${MAC:10:2}
-addMAC ${MAC:0:2}-${MAC:2:2}-${MAC:4:2}-${MAC:6:2}-${MAC:8:2}-${MAC:10:2}
+# Add case change first with same deliminators
+addMAC "orginal" $ORIGINAL_MAC
+# Add MAC with colon deliminator every 2 characters
+addMAC "with colons" ${CLEAN_MAC:0:2}:${CLEAN_MAC:2:2}:${CLEAN_MAC:4:2}:${CLEAN_MAC:6:2}:${CLEAN_MAC:8:2}:${CLEAN_MAC:10:2}
+# Add MAC with hyphen deliminator every 2 characters
+addMAC "with hyphens" ${CLEAN_MAC:0:2}-${CLEAN_MAC:2:2}-${CLEAN_MAC:4:2}-${CLEAN_MAC:6:2}-${CLEAN_MAC:8:2}-${CLEAN_MAC:10:2}
+# Add MAC with sigle hyphen deliminator in the middle
+addMAC "with middle hyphen" ${CLEAN_MAC:0:6}-${CLEAN_MAC:6:6}
+# Add MAC with no deliminators
+addMAC "with no deliminators" $CLEAN_MAC
 
 getXMLResults
